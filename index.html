@@ -1,72 +1,51 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Tarot • 3-Card Draw</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mini Tarot Simulator — Major Arcana</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="frame">
-    <header class="site-header">
-      <h1>Tarot • 3-Card Draw</h1>
-      <p class="tagline">Think of a question silently. Draw three cards for a playful reflection.</p>
-      <div class="controls">
-        <button id="shuffleBtn" class="btn">Shuffle Deck</button>
-        <button id="drawBtn" class="btn" disabled>Draw 3</button>
-        <button id="resetBtn" class="btn subtle" disabled>Reset</button>
-      </div>
-    </header>
+  <header class="top">
+    <h1>Mini Tarot Simulator</h1>
+    <p class="sub">Major Arcana • draw three • student version</p>
+    <div class="controls">
+      <button id="btnShuffle" class="btn">Shuffle</button>
+      <button id="btnDraw" class="btn" disabled>Draw 3</button>
+      <button id="btnReset" class="btn outline" disabled>Reset</button>
+    </div>
+  </header>
 
-    <main>
-      <section class="spread" aria-live="polite">
-        <div class="slot" data-pos="1">
-          <div class="card placeholder"><div class="back">?</div></div>
-          <div class="caption">Card 1</div>
-        </div>
-        <div class="slot" data-pos="2">
-          <div class="card placeholder"><div class="back">?</div></div>
-          <div class="caption">Card 2</div>
-        </div>
-        <div class="slot" data-pos="3">
-          <div class="card placeholder"><div class="back">?</div></div>
-          <div class="caption">Card 3</div>
-        </div>
-      </section>
+  <main class="board">
+    <div class="slot" data-pos="1"><div class="card placeholder"><img src="assets/major/card-back.svg" alt="back"></div><p class="cap">Card 1</p></div>
+    <div class="slot" data-pos="2"><div class="card placeholder"><img src="assets/major/card-back.svg" alt="back"></div><p class="cap">Card 2</p></div>
+    <div class="slot" data-pos="3"><div class="card placeholder"><img src="assets/major/card-back.svg" alt="back"></div><p class="cap">Card 3</p></div>
+  </main>
 
-      <section class="legend">
-        <div class="legend-item"><span class="dot upright"></span> Upright meaning</div>
-        <div class="legend-item"><span class="dot reversed"></span> Reversed meaning</div>
-      </section>
+  <section id="reading" class="reading hidden">
+    <h2>Your Reading</h2>
+    <ol>
+      <li id="r1"></li>
+      <li id="r2"></li>
+      <li id="r3"></li>
+    </ol>
+  </section>
 
-      <section id="readings" class="readings hidden">
-        <h2>Your Reading</h2>
-        <ol class="reading-list">
-          <li id="r1"></li>
-          <li id="r2"></li>
-          <li id="r3"></li>
-        </ol>
-      </section>
-    </main>
+  <footer class="foot">
+    <p>Student demo. Replace images in <code>assets/major/</code>. If a JPG is missing, a placeholder shows.</p>
+  </footer>
 
-    <footer class="site-footer">
-      <p>For entertainment only. Images are placeholders; swap in your own deck artwork anytime.</p>
-    </footer>
-  </div>
-
-  <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal-card">
-      <button id="modalClose" class="icon-btn" aria-label="Close">✕</button>
-      <h3 id="modalTitle">Card Details</h3>
-      <img id="modalImg" alt="" />
-      <p class="modal-meta" id="modalMeta"></p>
-      <p id="modalMeaning"></p>
+  <div id="modal" class="modal hidden" aria-hidden="true">
+    <div class="dialog">
+      <button id="closeModal" class="x">×</button>
+      <img id="mImg" alt="">
+      <h3 id="mTitle"></h3>
+      <p id="mMeta" class="meta"></p>
+      <p id="mTxt"></p>
     </div>
   </div>
 
-  <script src="script.js" defer></script>
+  <script src="script.js"></script>
 </body>
 </html>

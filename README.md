@@ -1,32 +1,11 @@
-# Tarot • 3-Card Draw (Dark Edition)
+# Mini Tarot Simulator — Major Arcana (with images)
+- 抽三张牌；随机正/逆位；点击看释义
+- 已内置你的 Rider–Waite 照片（部分牌缺图用占位 SVG）
 
-A GitHub Pages–ready site. Shuffle and draw three cards with upright/reversed meanings. Dark/mystic theme, deal-in animation, refined buttons with ripple, responsive layout.
+## 放图命名
+assets/major/ 下文件名规范（已替你命名）：
+major_00_fool.jpg … major_21_world.jpg
+（缺的：10, 11, 21 先用占位 SVG，后续换成 JPG 即可）
 
-## Run locally
-Open `index.html` in your browser.
-
-## Deploy on GitHub Pages
-1. Create a new repo and upload everything in this folder.
-2. In the repo, go to **Settings → Pages** → Source: `Deploy from a branch`, Branch: `main` (root).
-3. Your site will be available at `https://<your-username>.github.io/<repo>/`
-
-## Replace artwork
-- All 22 Major Arcana images live in `assets/cards/` as SVG placeholders.
-- Replace any file with your own JPG/PNG/SVG and keep the same filename, or update the `image` path inside `cards.json`.
-
-## Data format
-Each card in `cards.json`:
-```json
-{
-  "id": "major_00_the_fool",
-  "name": "The Fool",
-  "image": "assets/cards/major_00_the_fool.svg",
-  "arcana": "Major",
-  "suit": null,
-  "number": 0,
-  "upright": "…",
-  "reversed": "…"
-}
-```
-
-Enjoy!
+## 部署
+把整个文件夹上传到 GitHub 仓库根目录 → Settings → Pages → Deploy from a branch (main/根目录)。

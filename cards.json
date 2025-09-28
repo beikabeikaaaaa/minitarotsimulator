@@ -2,7 +2,7 @@
   {
     "id": "major_00_the_fool",
     "name": "The Fool",
-    "image": "assets/cards/major_00_the_fool.svg",
+    "image": "assets/major/major_00_fool.jpg",
     "arcana": "Major",
     "suit": null,
     "number": 0,
@@ -12,7 +12,7 @@
   {
     "id": "major_01_the_magician",
     "name": "The Magician",
-    "image": "assets/cards/major_01_the_magician.svg",
+    "image": "assets/major/major_01_magician.jpg",
     "arcana": "Major",
     "suit": null,
     "number": 1,
@@ -22,117 +22,117 @@
   {
     "id": "major_02_the_high_priestess",
     "name": "The High Priestess",
-    "image": "assets/cards/major_02_the_high_priestess.svg",
+    "image": "assets/major/major_02_high_priestess.jpg",
     "arcana": "Major",
     "suit": null,
     "number": 2,
     "upright": "intuition \u2022 mystery \u2022 inner voice",
-    "reversed": "secrets \u2022 ignoring intuition \u2022 surface thinking"
+    "reversed": "secrets \u2022 disconnect from intuition"
   },
   {
     "id": "major_03_the_empress",
     "name": "The Empress",
-    "image": "assets/cards/major_03_the_empress.svg",
+    "image": "assets/major/major_03_empress.jpg",
     "arcana": "Major",
     "suit": null,
     "number": 3,
     "upright": "abundance \u2022 care \u2022 creativity \u2022 growth",
-    "reversed": "smothering \u2022 creative block \u2022 neglecting self-care"
+    "reversed": "creative block \u2022 self-neglect"
   },
   {
     "id": "major_04_the_emperor",
     "name": "The Emperor",
-    "image": "assets/cards/major_04_the_emperor.svg",
+    "image": "assets/major/major_04_emperor.jpg",
     "arcana": "Major",
     "suit": null,
     "number": 4,
     "upright": "structure \u2022 stability \u2022 leadership",
-    "reversed": "rigidity \u2022 control issues \u2022 inflexibility"
+    "reversed": "rigidity \u2022 control issues"
   },
   {
     "id": "major_05_the_hierophant",
     "name": "The Hierophant",
-    "image": "assets/cards/major_05_the_hierophant.svg",
+    "image": "assets/major/major_05_hierophant.jpg",
     "arcana": "Major",
     "suit": null,
     "number": 5,
     "upright": "tradition \u2022 learning \u2022 guidance",
-    "reversed": "rebellion \u2022 dogma \u2022 question the rules"
+    "reversed": "dogma \u2022 question the rules"
   },
   {
     "id": "major_06_the_lovers",
     "name": "The Lovers",
-    "image": "assets/cards/major_06_the_lovers.svg",
+    "image": "assets/major/major_06_lovers.jpg",
     "arcana": "Major",
     "suit": null,
     "number": 6,
     "upright": "alignment \u2022 choice from the heart \u2022 partnership",
-    "reversed": "disharmony \u2022 misalignment \u2022 difficult choices"
+    "reversed": "disharmony \u2022 misalignment"
   },
   {
     "id": "major_07_the_chariot",
     "name": "The Chariot",
-    "image": "assets/cards/major_07_the_chariot.svg",
+    "image": "assets/major/major_07_chariot.jpg",
     "arcana": "Major",
     "suit": null,
     "number": 7,
     "upright": "determination \u2022 direction \u2022 victory",
-    "reversed": "lost control \u2022 aggression \u2022 lack of focus"
+    "reversed": "lost control \u2022 aggression"
   },
   {
     "id": "major_08_strength",
     "name": "Strength",
-    "image": "assets/cards/major_08_strength.svg",
+    "image": "assets/major/major_08_strength.jpg",
     "arcana": "Major",
     "suit": null,
     "number": 8,
     "upright": "inner strength \u2022 patience \u2022 gentle courage",
-    "reversed": "self-doubt \u2022 low energy \u2022 impatience"
+    "reversed": "self-doubt \u2022 low energy"
   },
   {
     "id": "major_09_the_hermit",
     "name": "The Hermit",
-    "image": "assets/cards/major_09_the_hermit.svg",
+    "image": "assets/major/major_09_hermit.jpg",
     "arcana": "Major",
     "suit": null,
     "number": 9,
     "upright": "reflection \u2022 solitude \u2022 inner guidance",
-    "reversed": "isolation \u2022 withdrawal \u2022 ignoring advice"
+    "reversed": "isolation \u2022 withdrawal"
   },
   {
     "id": "major_10_wheel_of_fortune",
     "name": "Wheel of Fortune",
-    "image": "assets/cards/major_10_wheel_of_fortune.svg",
+    "image": "assets/major/major_10_wheel_of_fortune.svg",
     "arcana": "Major",
     "suit": null,
     "number": 10,
     "upright": "cycles \u2022 luck \u2022 turning point",
-    "reversed": "resistance to change \u2022 setbacks \u2022 clinging to control"
+    "reversed": "resistance to change \u2022 setbacks"
   },
   {
     "id": "major_11_justice",
     "name": "Justice",
-    "image": "assets/cards/major_11_justice.svg",
+    "image": "assets/major/major_11_justice.svg",
     "arcana": "Major",
     "suit": null,
     "number": 11,
     "upright": "truth \u2022 fairness \u2022 accountability",
-    "reversed": "bias \u2022 dishonesty \u2022 dodging consequences"
+    "reversed": "bias \u2022 dishonesty"
   },
   {
     "id": "major_12_the_hanged_man",
     "name": "The Hanged Man",
-    "image": "assets/cards/major_12_the_hanged_man.svg",
+    "image": "assets/major/major_12_hanged_man.jpg",
     "arcana": "Major",
     "suit": null,
     "number": 12,
     "upright": "new perspective \u2022 pause \u2022 surrender",
-    "reversed": "stalling \u2022 fear of sacrifice \u2022 stuckness"
+    "reversed": "stalling \u2022 fear of sacrifice"
   },
   {
     "id": "major_13_death",
     "name": "Death",
-    "image": "assets/cards/major_13_death.svg",
+    "image": "assets/major/major_13_death.jpg",
     "arcana": "Major",
     "suit": null,
     "number": 13,
@@ -142,47 +142,47 @@
   {
     "id": "major_14_temperance",
     "name": "Temperance",
-    "image": "assets/cards/major_14_temperance.svg",
+    "image": "assets/major/major_14_temperance.jpg",
     "arcana": "Major",
     "suit": null,
     "number": 14,
     "upright": "balance \u2022 moderation \u2022 blending",
-    "reversed": "excess \u2022 extremes \u2022 lack of harmony"
+    "reversed": "excess \u2022 lack of harmony"
   },
   {
     "id": "major_15_the_devil",
     "name": "The Devil",
-    "image": "assets/cards/major_15_the_devil.svg",
+    "image": "assets/major/major_15_devil.jpg",
     "arcana": "Major",
     "suit": null,
     "number": 15,
     "upright": "attachment \u2022 desire \u2022 confronting shadow",
-    "reversed": "release \u2022 awareness \u2022 breaking chains"
+    "reversed": "release \u2022 breaking chains"
   },
   {
     "id": "major_16_the_tower",
     "name": "The Tower",
-    "image": "assets/cards/major_16_the_tower.svg",
+    "image": "assets/major/major_16_tower.jpg",
     "arcana": "Major",
     "suit": null,
     "number": 16,
-    "upright": "sudden change \u2022 revelation \u2022 breakdown to breakthrough",
+    "upright": "sudden change \u2022 revelation \u2022 breakthrough",
     "reversed": "fear of upheaval \u2022 crisis averted"
   },
   {
     "id": "major_17_the_star",
     "name": "The Star",
-    "image": "assets/cards/major_17_the_star.svg",
+    "image": "assets/major/major_17_star.jpg",
     "arcana": "Major",
     "suit": null,
     "number": 17,
     "upright": "hope \u2022 renewal \u2022 guidance",
-    "reversed": "doubt \u2022 cynicism \u2022 dimmed faith"
+    "reversed": "doubt \u2022 dimmed faith"
   },
   {
     "id": "major_18_the_moon",
     "name": "The Moon",
-    "image": "assets/cards/major_18_the_moon.svg",
+    "image": "assets/major/major_18_moon.jpg",
     "arcana": "Major",
     "suit": null,
     "number": 18,
@@ -192,31 +192,31 @@
   {
     "id": "major_19_the_sun",
     "name": "The Sun",
-    "image": "assets/cards/major_19_the_sun.svg",
+    "image": "assets/major/major_19_sun.jpg",
     "arcana": "Major",
     "suit": null,
     "number": 19,
     "upright": "joy \u2022 success \u2022 vitality",
-    "reversed": "temporary gloom \u2022 overexposure \u2022 need to recharge"
+    "reversed": "temporary gloom \u2022 need to recharge"
   },
   {
     "id": "major_20_judgement",
     "name": "Judgement",
-    "image": "assets/cards/major_20_judgement.svg",
+    "image": "assets/major/major_20_judgement.jpg",
     "arcana": "Major",
     "suit": null,
     "number": 20,
     "upright": "awakening \u2022 reckoning \u2022 second chance",
-    "reversed": "self-criticism \u2022 hesitation \u2022 fear of calling"
+    "reversed": "self-criticism \u2022 hesitation"
   },
   {
     "id": "major_21_the_world",
     "name": "The World",
-    "image": "assets/cards/major_21_the_world.svg",
+    "image": "assets/major/major_21_world.svg",
     "arcana": "Major",
     "suit": null,
     "number": 21,
     "upright": "completion \u2022 integration \u2022 expansion",
-    "reversed": "unfinished business \u2022 delays \u2022 almost there"
+    "reversed": "unfinished business \u2022 delays"
   }
 ]
