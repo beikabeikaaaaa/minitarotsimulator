@@ -1,38 +1,135 @@
-// Mini Tarot — Major Arcana student version with real images where available
-const qs = (s,r=document)=>r.querySelector(s); const qsa = (s,r=document)=>Array.from(r.querySelectorAll(s));
-const state = { deck: [], drawn: [] };
+// Mini Tarot — 3‑Card Draw (Majors Only)
+// Uses data/cards.json and tries multiple filename fallbacks for your existing assets.
 
-async function loadDeck(){ const res = await fetch('cards.json',{cache:'no-store'}); return res.json(); }
-function shuffle(a){ const r=a.slice(); for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]]} return r }
-function orientation(){ return Math.random()<0.5?'upright':'reversed'; }
+const cardsEl = document.getElementById('cards');
+const drawBtn = document.getElementById('drawBtn');
+const resetBtn = document.getElementById('resetBtn');
 
-function resetSlots(){
-  qsa('.slot').forEach((slot,i)=>{ const c=qs('.card',slot); c.className='card placeholder'; c.innerHTML='<img src="assets/major/card-back.svg" alt="back">'; qs('.cap',slot).textContent=`Card ${i+1}`; });
-  qs('#reading').classList.add('hidden'); ['r1','r2','r3'].forEach(id=>qs('#'+id).textContent='');
+let ALL_CARDS = [];
+
+async function loadData() {
+  try {
+    const res = await fetch('data/cards.json');
+    ALL_CARDS = await res.json();
+  } catch (e) {
+    console.error('Failed to load cards.json', e);
+    ALL_CARDS = [];
+  }
+}
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
 }
 
-function putCard(slot, draw){
-  const cardEl = qs('.card',slot);
-  cardEl.className = 'card deal' + (draw.orientation==='reversed'?' reversed':''); cardEl.innerHTML='';
-  const img = new Image(); img.src = draw.card.image; img.alt = draw.card.name;
-  img.onerror = ()=>{ img.src = 'assets/major/card-back.svg'; }; cardEl.appendChild(img);
-  qs('.cap',slot).textContent = `${draw.card.name} • ${draw.orientation}`; cardEl.onclick = ()=>openModal(draw);
+// Given a card object, build candidate filenames to try
+function candidateImagePaths(card) {
+  const base = 'assets/major/';
+  const slug = card.slug || card.name.toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-');
+  const idx = typeof card.index === 'number' ? String(card.index).padStart(2, '0') : null;
+
+  const exts = ['.jpg','.JPG','.jpeg','.JPEG','.png','.PNG','.webp','.WEBP'];
+  const variants = new Set();
+
+  // Preferred: slug
+  exts.forEach(ext => variants.add(`${base}${slug}${ext}`));
+  // index + slug
+  if (idx) exts.forEach(ext => variants.add(`${base}${idx}-${slug}${ext}`));
+  // TitleCase no space
+  const noSpace = (card.name || '').replace(/\s+/g, '');
+  exts.forEach(ext => variants.add(`${base}${noSpace}${ext}`));
+  // TitleCase with dashes (basic)
+  const dashedTitle = (card.name || '').toLowerCase().replace(/\s+/g, '-');
+  exts.forEach(ext => variants.add(`${base}${dashedTitle}${ext}`));
+
+  // Last resort: placeholder
+  variants.add('assets/placeholder.jpg');
+  return Array.from(variants);
 }
 
-function openModal(draw){
-  qs('#mTitle').textContent = draw.card.name + (draw.orientation==='reversed'?' (Reversed)':'');
-  qs('#mImg').src = draw.card.image; qs('#mImg').alt = draw.card.name;
-  qs('#mTxt').textContent = draw.card[draw.orientation]; qs('#mMeta').textContent = draw.card.arcana;
-  qs('#modal').classList.remove('hidden');
+// Try loading candidates in order until one succeeds, then set img.src
+function setImageWithFallback(img, card) {
+  const candidates = candidateImagePaths(card);
+  let i = 0;
+  function tryNext() {
+    if (i >= candidates.length) return; // Already used placeholder
+    const url = candidates[i++];
+    const testImg = new Image();
+    testImg.onload = () => { img.src = url; };
+    testImg.onerror = tryNext;
+    testImg.src = url;
+  }
+  tryNext();
 }
-function closeModal(){ qs('#modal').classList.add('hidden'); }
 
-async function init(){
-  state.deck = await loadDeck(); qs('#btnShuffle').disabled=false;
-  qs('#btnShuffle').addEventListener('click',()=>{ state.deck=shuffle(state.deck); state.drawn=[]; resetSlots(); qs('#btnDraw').disabled=false; qs('#btnReset').disabled=false; });
-  qs('#btnDraw').addEventListener('click',()=>{ if(state.deck.length<3){ alert('Not enough cards. Shuffle again.'); return; } state.drawn=[]; for(let i=0;i<3;i++){ const card=state.deck.pop(); const o=orientation(); state.drawn.push({card,orientation:o}); } qsa('.slot').forEach((slot,idx)=> setTimeout(()=>putCard(slot, state.drawn[idx]), idx*180)); setTimeout(()=>{ qs('#r1').textContent=`${state.drawn[0].card.name} (${state.drawn[0].orientation}) — ${state.drawn[0][state.drawn[0].orientation]}`; qs('#r2').textContent=`${state.drawn[1].card.name} (${state.drawn[1].orientation}) — ${state.drawn[1][state.drawn[1].orientation]}`; qs('#r3').textContent=`${state.drawn[2].card.name} (${state.drawn[2].orientation}) — ${state.drawn[2][state.drawn[2].orientation]}`; qs('#reading').classList.remove('hidden'); }, 600); });
-  qs('#btnReset').addEventListener('click',()=>{ state.drawn=[]; state.deck=shuffle(state.deck); resetSlots(); qs('#btnDraw').disabled=true; });
-  qs('#closeModal').addEventListener('click', closeModal); qs('#modal').addEventListener('click',(e)=>{ if(e.target.id==='modal') closeModal(); }); document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
-  resetSlots();
+// Create a card element
+function createCardEl(card, reversed=false) {
+  const el = document.createElement('article');
+  el.className = 'card' + (reversed ? ' reversed' : '');
+
+  const vis = document.createElement('div');
+  vis.className = 'card-visual';
+  const img = document.createElement('img');
+  img.alt = card.name;
+  setImageWithFallback(img, card);
+  vis.appendChild(img);
+
+  const meta = document.createElement('div');
+  meta.className = 'meta';
+
+  const h3 = document.createElement('h3');
+  h3.className = 'card-name';
+  h3.innerHTML = `<span>${card.name}</span> <span class="badge">${reversed ? 'Reversed' : 'Upright'}</span>`;
+
+  const meaning = document.createElement('p');
+  meaning.className = 'meaning';
+  meaning.textContent = reversed ? (card.meanings?.reversed || '—') : (card.meanings?.upright || '—');
+
+  meta.appendChild(h3);
+  meta.appendChild(meaning);
+
+  el.appendChild(vis);
+  el.appendChild(meta);
+
+  // Toggle meaning on click/tap; show on hover via CSS on desktop
+  el.addEventListener('click', () => {
+    el.classList.toggle('show-meaning');
+  });
+
+  return el;
 }
-window.addEventListener('DOMContentLoaded', init);
+
+function drawThree() {
+  if (!ALL_CARDS.length) return;
+
+  // majors only (type === 'major')
+  const majors = ALL_CARDS.filter(c => c.type === 'major');
+  shuffle(majors);
+
+  const pick = majors.slice(0, 3).map(c => ({
+    card: c,
+    reversed: Math.random() < 0.5
+  }));
+
+  // Render
+  cardsEl.innerHTML = '';
+  pick.forEach(({card, reversed}) => {
+    const el = createCardEl(card, reversed);
+    cardsEl.appendChild(el);
+  });
+}
+
+async function init() {
+  await loadData();
+  drawBtn.addEventListener('click', drawThree);
+  resetBtn.addEventListener('click', () => {
+    cardsEl.innerHTML = '';
+  });
+}
+
+init();

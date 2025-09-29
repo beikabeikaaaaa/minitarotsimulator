@@ -1,39 +1,35 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>p5 Tarot — Major Arcana (3-card)</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="https://cdn.jsdelivr.net/npm/p5@1.9.2/lib/p5.min.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mini Tarot — 3-Card Draw (Majors Only)</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preload" href="data/cards.json" as="fetch" crossorigin="anonymous">
 </head>
 <body>
-  <div class="bg-overlay"></div>
-  <header class="top">
-    <h1 class="title">Mini Tarot Simulator</h1>
-    <p class="sub">Major Arcana • draw three • p5.js</p>
-    <div class="controls">
-      <button id="btnDraw" class="btn">Draw 3</button>
-      <button id="btnReset" class="btn outline">Reset</button>
-    </div>
-  </header>
+  <div class="page-wrap">
+    <header class="header">
+      <h1 class="site-title">Mini Tarot — 3‑Card Draw</h1>
+      <p class="subtitle">Majors only • Click <em>Draw</em> → hover/tap cards to see meanings • Reversed = rotated 180°</p>
+      <div class="controls">
+        <button id="drawBtn" class="btn">Draw 3 Cards</button>
+        <button id="resetBtn" class="btn btn-ghost">Reset</button>
+      </div>
+    </header>
 
-  <main class="wrap">
-    <div id="p5-holder" class="canvasHolder"></div>
-    <section id="reading" class="reading">
-      <h2>Reading</h2>
-      <ol>
-        <li id="r1"></li>
-        <li id="r2"></li>
-        <li id="r3"></li>
-      </ol>
-    </section>
-  </main>
+    <main class="main">
+      <section id="cards" class="cards-grid" aria-live="polite"></section>
+    </main>
 
-  <footer class="foot">
-    <p>Student demo • Images in <code>assets/major/</code></p>
-  </footer>
+    <footer class="footer">
+      <p>Tip: Put your 22 Major Arcana images inside <code>assets/major/</code> using the filenames listed in <code>README.md</code>. If a file is missing, a placeholder shows.</p>
+    </footer>
+  </div>
 
-  <script src="sketch.js"></script>
+  <!-- Background overlay (replace assets/bg.jpg to customize, ~35% opacity) -->
+  <div class="bg"></div>
+
+  <script src="script.js"></script>
 </body>
 </html>
