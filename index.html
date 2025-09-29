@@ -1,35 +1,21 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mini Tarot — 3-Card Draw (Majors Only)</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mini Tarot — 3-Card Draw</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="preload" href="data/cards.json" as="fetch" crossorigin="anonymous">
 </head>
 <body>
-  <div class="page-wrap">
-    <header class="header">
-      <h1 class="site-title">Mini Tarot — 3‑Card Draw</h1>
-      <p class="subtitle">Majors only • Click <em>Draw</em> → hover/tap cards to see meanings • Reversed = rotated 180°</p>
-      <div class="controls">
-        <button id="drawBtn" class="btn">Draw 3 Cards</button>
-        <button id="resetBtn" class="btn btn-ghost">Reset</button>
-      </div>
-    </header>
-
-    <main class="main">
-      <section id="cards" class="cards-grid" aria-live="polite"></section>
-    </main>
-
-    <footer class="footer">
-      <p>Tip: Put your 22 Major Arcana images inside <code>assets/major/</code> using the filenames listed in <code>README.md</code>. If a file is missing, a placeholder shows.</p>
-    </footer>
+  <div class="container">
+    <h1 class="site-title">Mini Tarot — 3-Card Draw</h1>
+    <div class="controls">
+      <button id="drawBtn">Draw 3 Cards</button>
+      <button id="resetBtn">Reset</button>
+    </div>
+    <div id="cards" class="cards"></div>
+    <p class="tip">Think of a question, draw 3 cards, and reveal their meanings.</p>
   </div>
-
-  <!-- Background overlay (replace assets/bg.jpg to customize, ~35% opacity) -->
-  <div class="bg"></div>
-
   <script src="script.js"></script>
 </body>
 </html>

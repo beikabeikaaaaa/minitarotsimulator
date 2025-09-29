@@ -1,153 +1,70 @@
-/* Basic reset */
-* { box-sizing: border-box; }
-html, body { height: 100%; }
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
-  color: #1c1c1c;
-  line-height: 1.5;
-  background: #f7f7f7;
-  overflow-x: hidden;
-}
-
-/* Background image with ~35% visual strength using overlay */
-.bg {
-  position: fixed;
-  inset: 0;
-  background-image: url('assets/bg.jpg');
+  font-family: 'ZapfinoCustom', cursive, serif;
+  background: url('assets/bg.jpg') no-repeat center center fixed;
   background-size: cover;
-  background-position: center;
-  opacity: 0.35;
-  z-index: 0;
-  pointer-events: none;
-  filter: grayscale(0.05);
-}
-
-.page-wrap { position: relative; z-index: 1; }
-
-.header {
+  color: #fff;
   text-align: center;
-  padding: 2.5rem 1rem 1rem;
+}
+@font-face {
+  font-family: 'ZapfinoCustom';
+  src: url('assets/fonts/Zapfino.ttf') format('truetype');
+}
+.container {
+  background: rgba(0,0,0,0.6);
+  padding: 20px;
+  min-height: 100vh;
 }
 .site-title {
-  margin: 0 0 .25rem 0;
-  font-weight: 800;
-  letter-spacing: .5px;
-  font-size: clamp(1.6rem, 2.6vw, 2.4rem);
+  font-size: 2.5rem;
+  margin-bottom: 20px;
 }
-.subtitle {
-  margin: 0 auto 1rem;
-  max-width: 800px;
-  opacity: 0.85;
+.controls button {
+  margin: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
 }
-
-.controls {
+.cards {
   display: flex;
   justify-content: center;
-  gap: .75rem;
-  margin: 1rem 0 0;
+  gap: 20px;
+  margin-top: 20px;
+  flex-wrap: wrap;
 }
-.btn {
-  border: none;
-  background: #111;
-  color: #fff;
-  padding: .7rem 1rem;
-  border-radius: 14px;
-  cursor: pointer;
-  transition: transform .1s ease, box-shadow .2s ease, opacity .2s ease;
-  box-shadow: 0 6px 16px rgba(0,0,0,.12);
-}
-.btn:hover { transform: translateY(-1px); }
-.btn:active { transform: translateY(0); }
-.btn[disabled] { opacity: .5; cursor: not-allowed; }
-.btn-ghost { background: rgba(255,255,255,.7); color: #111; border: 1px solid rgba(0,0,0,.08); }
-
-.main {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1rem 1rem 4rem;
-}
-
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(220px, 1fr));
-  gap: 1.25rem;
-  align-items: start;
-  justify-items: center;
-}
-@media (max-width: 800px) {
-  .cards-grid { grid-template-columns: 1fr; }
-}
-
 .card {
-  width: 100%;
-  max-width: 360px;
-  perspective: 1200px;
+  width: 180px;
+  height: 320px;
   position: relative;
+  perspective: 1000px;
 }
-
-.card-visual {
-  position: relative;
-  border-radius: 16px;
-  overflow: hidden;
-  background: rgba(255,255,255,.8);
-  box-shadow: 0 10px 30px rgba(0,0,0,.18);
-  transition: transform .2s ease;
-}
-
-.card-visual img {
-  display: block;
+.card-inner {
+  position: absolute;
   width: 100%;
-  height: auto;
-  aspect-ratio: 3/5;
-  object-fit: cover;
-  transform-origin: 50% 50%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
 }
-
-.card.reversed .card-visual img {
-  transform: rotate(180deg);
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
 }
-
-.meta {
-  padding: .75rem 1rem 1rem;
-  background: rgba(255,255,255,.85);
-  border-radius: 0 0 16px 16px;
-  backdrop-filter: blur(4px);
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border: 2px solid #fff;
+  border-radius: 8px;
 }
-
-.card-name {
-  font-weight: 700;
-  margin: 0 0 .25rem;
-  display: flex;
-  align-items: center;
-  gap: .5rem;
+.card-front {
+  transform: rotateY(180deg);
 }
-.badge {
-  font-size: .8rem;
-  padding: .15rem .5rem;
-  border-radius: 999px;
-  border: 1px solid rgba(0,0,0,.08);
-  background: rgba(0,0,0,.06);
+.card img {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
 }
-
 .meaning {
-  margin: .5rem 0 0;
-  font-size: .95rem;
-  opacity: .95;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  max-width: 180px;
 }
-
-/* Tooltip card meaning on hover/tap */
-.card .meaning {
-  display: none;
-}
-.card.show-meaning .meaning {
-  display: block;
-}
-
-/* Footer */
-.footer {
-  text-align: center;
-  padding: 2rem 1rem 4rem;
-  opacity: .75;
-}
-code { background: rgba(0,0,0,.06); padding: .1rem .3rem; border-radius: 6px; }
