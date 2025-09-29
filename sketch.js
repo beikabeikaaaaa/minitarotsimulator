@@ -14,10 +14,11 @@ const LAYOUT = {
   cardsYFactor: 0.68,  
   stackY: 120,
 
+
   capOffsetX: 16,      
-  capOffsetY: -4,      
+  capOffsetY: -4,     
   capWidth: 220,       
-  capSize: 14         
+  capSize: 14          
 };
 
 function preload(){
@@ -34,6 +35,7 @@ function setup(){
   textAlign(CENTER, CENTER);
   textSize(LAYOUT.capSize);
 
+  
   for (const card of deck){
     if (!imgs[card.image]) {
       imgs[card.image] = loadImage(
@@ -77,6 +79,7 @@ function computeSlots(){
 function draw(){
   clear();
 
+
   push();
   translate(canvasW / 2, LAYOUT.stackY);
   for (let i = 0; i < 3; i++){
@@ -86,24 +89,26 @@ function draw(){
     pop();
   }
   pop();
-  
+
+  // ight-side captions
   for (let i = 0; i < drawn.length; i++){
     const d = drawn[i];
     const s = slots[i];
     const img = imgs[d.card.image] || backImg;
 
+    // card
     push();
     translate(s.x, s.y);
     if (d.orientation === 'reversed') rotate(PI);
     image(img, 0, 0, LAYOUT.cardW, LAYOUT.cardH);
     pop();
 
-
+    // caption (RIGHT of card, bottom-aligned to card bottom)
     const cardRightX = s.x + LAYOUT.cardW / 2;
     const cardBottomY = s.y + LAYOUT.cardH / 2;
 
-    const capX = cardRightX + LAYOUT.capOffsetX;             
-    const capY = cardBottomY + LAYOUT.capOffsetY;            
+    const capX = cardRightX + LAYOUT.capOffsetX;               // to the right
+    const capY = cardBottomY + LAYOUT.capOffsetY;              // align bottoms
 
     const isRev = d.orientation === 'reversed';
     const label = isRev ? 'Reversed: ' : 'Upright: ';
@@ -112,14 +117,14 @@ function draw(){
     push();
     textSize(LAYOUT.capSize);
     textWrap(WORD);
-    textAlign(LEFT, BOTTOM);                                   
+    textAlign(LEFT, BOTTOM);                                 
     fill(240);
-    
+  
     text(textStr, capX, capY, LAYOUT.capWidth);
     pop();
   }
 
-  
+
   for (let i = 0; i < drawn.length; i++){
     const s = slots[i];
     s.hover = (
@@ -130,7 +135,6 @@ function draw(){
 }
 
 function mousePressed(){
-  
   for (let i = 0; i < drawn.length; i++){
     const s = slots[i];
     if (s.hover){
