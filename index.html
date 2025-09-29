@@ -4,18 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mini Tarot — 3-Card Draw</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <div class="bg-overlay"></div>
   <div class="container">
     <h1 class="site-title">Mini Tarot — 3-Card Draw</h1>
     <div class="controls">
-      <button id="drawBtn">Draw 3 Cards</button>
-      <button id="resetBtn">Reset</button>
+      <button id="btnDraw" class="btn">Draw 3</button>
+      <button id="btnShuffle" class="btn">Shuffle</button>
+      <button id="btnReset" class="btn outline">Reset</button>
     </div>
     <div id="cards" class="cards"></div>
     <p class="tip">Think of a question, draw 3 cards, and reveal their meanings.</p>
   </div>
+  <footer class="foot">
+    <p>Images in <code>assets/major/</code>, background <code>assets/background.jpg</code>, back <code>assets/back.jpg</code></p>
+  </footer>
   <script src="script.js"></script>
 </body>
 </html>

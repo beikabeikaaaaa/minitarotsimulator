@@ -1,14 +1,20 @@
 const cardsContainer = document.getElementById('cards');
-const drawBtn = document.getElementById('drawBtn');
-const resetBtn = document.getElementById('resetBtn');
+const drawBtn = document.getElementById('btnDraw');
+const resetBtn = document.getElementById('btnReset');
+const shuffleBtn = document.getElementById('btnShuffle');
 
 let deck = [];
 
 fetch('data/cards.json')
   .then(res => res.json())
-  .then(data => {
-    deck = data;
-  });
+  .then(data => { deck = data; });
+
+function shuffleDeck() {
+  for (let i = deck.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [deck[i], deck[j]] = [deck[j], deck[i]];
+  }
+}
 
 function createCardElement(card) {
   const cardDiv = document.createElement('div');
@@ -58,4 +64,9 @@ drawBtn.addEventListener('click', () => {
 
 resetBtn.addEventListener('click', () => {
   cardsContainer.innerHTML = '';
+});
+
+shuffleBtn.addEventListener('click', () => {
+  shuffleDeck();
+  alert("Deck shuffled!");
 });
