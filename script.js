@@ -41,9 +41,9 @@ function createCardElement(card) {
 
   // upright/ reversed
   const isReversed = Math.random() < 0.5;
-  if (isReversed) {
-    front.style.transform = "rotate(180deg)";
-  }
+ if (isReversed) {
+  frontImg.style.transform = "rotate(180deg)";
+}
 
   const meaning = document.createElement('div');
   meaning.classList.add('meaning');
