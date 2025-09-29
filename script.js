@@ -38,9 +38,15 @@ function createCardElement(card) {
   inner.appendChild(back);
   cardDiv.appendChild(inner);
 
+  // reversed50% / 
+  const isReversed = Math.random() < 0.5;
+  if (isReversed) {
+    front.style.transform = "rotate(180deg)";
+  }
+
   const meaning = document.createElement('div');
   meaning.classList.add('meaning');
-  meaning.textContent = card.upright;
+  meaning.textContent = isReversed ? card.reversed : card.upright;
   meaning.style.display = 'none';
 
   cardDiv.addEventListener('click', () => {
