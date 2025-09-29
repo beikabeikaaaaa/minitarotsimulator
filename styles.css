@@ -43,6 +43,9 @@ body{
   width:100%; max-width:980px; padding:0 16px 24px;
   display:flex; flex-direction:column; align-items:center; gap:16px;
 }
+.card.reversed {
+  transform: rotate(180deg);
+}
 .canvasHolder{
   width:min(920px, 94vw); display:grid; place-items:center;
   padding:12px; border-radius:16px;
