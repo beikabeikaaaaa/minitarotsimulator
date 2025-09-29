@@ -20,6 +20,8 @@ body{
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
   display:flex; flex-direction:column; align-items:center;
 }
+@font-face{ font-family:'ZapfinoCustom'; src:url('assets/fonts/Zapfino.ttf') format('truetype'); font-display:swap; }
+.bg-overlay{ position:fixed; inset:0; background:url('assets/background.jpg') center/cover no-repeat; opacity:.35; pointer-events:none; z-index:-1;}
 /* Background image at ~35% opacity via overlay */
 .bg-overlay{
   position:fixed; inset:0;
