@@ -73,6 +73,9 @@ function draw(){
     pop();
     // caption centered under card
     noStroke(); fill(245); text(`${d.card.name} • ${d.orientation}`, s.x, s.y + 150);
+    backImg = loadImage('assets/major/card-back.svg');
+    if (d.orientation === 'reversed') rotate(PI);
+
   }
 
   // hover detect
