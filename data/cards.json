@@ -1,1 +1,134 @@
-
+[
+  {
+    "name": "The Fool",
+    "file": "major_00_the_fool.jpg",
+    "upright": "Upright meaning of The Fool",
+    "reversed": "Reversed meaning of The Fool"
+  },
+  {
+    "name": "The Magician",
+    "file": "major_01_the_magician.jpg",
+    "upright": "Upright meaning of The Magician",
+    "reversed": "Reversed meaning of The Magician"
+  },
+  {
+    "name": "The High Priestess",
+    "file": "major_02_the_high_priestess.jpg",
+    "upright": "Upright meaning of The High Priestess",
+    "reversed": "Reversed meaning of The High Priestess"
+  },
+  {
+    "name": "The Empress",
+    "file": "major_03_the_empress.jpg",
+    "upright": "Upright meaning of The Empress",
+    "reversed": "Reversed meaning of The Empress"
+  },
+  {
+    "name": "The Emperor",
+    "file": "major_04_the_emperor.jpg",
+    "upright": "Upright meaning of The Emperor",
+    "reversed": "Reversed meaning of The Emperor"
+  },
+  {
+    "name": "The Hierophant",
+    "file": "major_05_the_hierophant.jpg",
+    "upright": "Upright meaning of The Hierophant",
+    "reversed": "Reversed meaning of The Hierophant"
+  },
+  {
+    "name": "The Lovers",
+    "file": "major_06_the_lovers.jpg",
+    "upright": "Upright meaning of The Lovers",
+    "reversed": "Reversed meaning of The Lovers"
+  },
+  {
+    "name": "The Chariot",
+    "file": "major_07_the_chariot.jpg",
+    "upright": "Upright meaning of The Chariot",
+    "reversed": "Reversed meaning of The Chariot"
+  },
+  {
+    "name": "Strength",
+    "file": "major_08_strength.jpg",
+    "upright": "Upright meaning of Strength",
+    "reversed": "Reversed meaning of Strength"
+  },
+  {
+    "name": "The Hermit",
+    "file": "major_09_the_hermit.jpg",
+    "upright": "Upright meaning of The Hermit",
+    "reversed": "Reversed meaning of The Hermit"
+  },
+  {
+    "name": "Wheel of Fortune",
+    "file": "major_10_wheel_of_fortune.jpg",
+    "upright": "Upright meaning of Wheel of Fortune",
+    "reversed": "Reversed meaning of Wheel of Fortune"
+  },
+  {
+    "name": "Justice",
+    "file": "major_11_justice.jpg",
+    "upright": "Upright meaning of Justice",
+    "reversed": "Reversed meaning of Justice"
+  },
+  {
+    "name": "The Hanged Man",
+    "file": "major_12_the_hanged_man.jpg",
+    "upright": "Upright meaning of The Hanged Man",
+    "reversed": "Reversed meaning of The Hanged Man"
+  },
+  {
+    "name": "Death",
+    "file": "major_13_death.jpg",
+    "upright": "Upright meaning of Death",
+    "reversed": "Reversed meaning of Death"
+  },
+  {
+    "name": "Temperance",
+    "file": "major_14_temperance.jpg",
+    "upright": "Upright meaning of Temperance",
+    "reversed": "Reversed meaning of Temperance"
+  },
+  {
+    "name": "The Devil",
+    "file": "major_15_the_devil.jpg",
+    "upright": "Upright meaning of The Devil",
+    "reversed": "Reversed meaning of The Devil"
+  },
+  {
+    "name": "The Tower",
+    "file": "major_16_the_tower.jpg",
+    "upright": "Upright meaning of The Tower",
+    "reversed": "Reversed meaning of The Tower"
+  },
+  {
+    "name": "The Star",
+    "file": "major_17_the_star.jpg",
+    "upright": "Upright meaning of The Star",
+    "reversed": "Reversed meaning of The Star"
+  },
+  {
+    "name": "The Moon",
+    "file": "major_18_the_moon.jpg",
+    "upright": "Upright meaning of The Moon",
+    "reversed": "Reversed meaning of The Moon"
+  },
+  {
+    "name": "The Sun",
+    "file": "major_19_the_sun.jpg",
+    "upright": "Upright meaning of The Sun",
+    "reversed": "Reversed meaning of The Sun"
+  },
+  {
+    "name": "Judgement",
+    "file": "major_20_judgement.jpg",
+    "upright": "Upright meaning of Judgement",
+    "reversed": "Reversed meaning of Judgement"
+  },
+  {
+    "name": "The World",
+    "file": "major_21_the_world.jpg",
+    "upright": "Upright meaning of The World",
+    "reversed": "Reversed meaning of The World"
+  }
+]
