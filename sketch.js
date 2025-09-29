@@ -1,10 +1,10 @@
-// p5 Tarot — centered layout variant
+// p5 Tarot — centered 
 let deck = [];
 let imgs = {};
 let backImg;
 let drawn = [];
 let canvasW, canvasH;
-let slots = []; // 3 positions responsive
+let slots = []; // 3 
 
 function preload(){
   backImg = loadImage('assets/major/card-back.svg');
@@ -39,7 +39,7 @@ function windowResized(){
 function computeCanvasSize(){
   const maxW = min(920, windowWidth*0.94);
   canvasW = maxW;
-  canvasH = round(maxW * 0.56); // 16:9-ish
+  canvasH = round(maxW * 0.56); 
 }
 
 function computeSlots(){
@@ -54,8 +54,8 @@ function computeSlots(){
 }
 
 function draw(){
-  clear(); // transparent canvas; background handled by CSS
-  // Stack preview at top (subtle, centered above)
+  clear(); 
+  
   push();
   translate(canvasW/2, 70);
   for (let i=0;i<3;i++){
@@ -63,7 +63,7 @@ function draw(){
   }
   pop();
 
-  // render cards
+
   for (let i=0;i<drawn.length;i++){
     const d = drawn[i]; const s = slots[i];
     const img = imgs[d.card.image] || backImg;
@@ -71,14 +71,13 @@ function draw(){
     translate(s.x, s.y); if (d.orientation==='reversed') rotate(PI);
     image(img, 0, 0, 150, 244);
     pop();
-    // caption centered under card
+
     noStroke(); fill(245); text(`${d.card.name} • ${d.orientation}`, s.x, s.y + 150);
     backImg = loadImage('assets/major/card-back.svg');
     if (d.orientation === 'reversed') rotate(PI);
 
   }
 
-  // hover detect
   for (let i=0;i<drawn.length;i++){
     const s = slots[i];
     s.hover = (mouseX > s.x-75 && mouseX < s.x+75 && mouseY > s.y-122 && mouseY < s.y+122);
