@@ -26,6 +26,7 @@ function createCardElement(card) {
   front.classList.add('card-front');
   const frontImg = document.createElement('img');
   frontImg.src = `assets/major/${card.file}`;
+  frontImg.onerror = () => { frontImg.src = 'assets/back.jpg'; }; // fallback
   front.appendChild(frontImg);
 
   const back = document.createElement('div');
@@ -38,7 +39,7 @@ function createCardElement(card) {
   inner.appendChild(back);
   cardDiv.appendChild(inner);
 
-  // reversed50% / 
+  // upright/ reversed
   const isReversed = Math.random() < 0.5;
   if (isReversed) {
     front.style.transform = "rotate(180deg)";
@@ -46,7 +47,9 @@ function createCardElement(card) {
 
   const meaning = document.createElement('div');
   meaning.classList.add('meaning');
-  meaning.textContent = isReversed ? card.reversed : card.upright;
+  meaning.textContent = isReversed 
+    ? `Reversed: ${card.meanings.reversed}` 
+    : `Upright: ${card.meanings.upright}`;
   meaning.style.display = 'none';
 
   cardDiv.addEventListener('click', () => {
