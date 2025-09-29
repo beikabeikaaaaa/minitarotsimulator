@@ -2,50 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mini Tarot Simulator — Major Arcana</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>p5 Tarot — Major Arcana (3-card)</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.9.2/lib/p5.min.js"></script>
 </head>
 <body>
+  <div class="bg-overlay"></div>
   <header class="top">
-    <h1>Mini Tarot Simulator</h1>
-    <p class="sub">Major Arcana • draw three • student version</p>
+    <h1 class="title">Mini Tarot Simulator</h1>
+    <p class="sub">Major Arcana • draw three • p5.js</p>
     <div class="controls">
-      <button id="btnShuffle" class="btn">Shuffle</button>
-      <button id="btnDraw" class="btn" disabled>Draw 3</button>
-      <button id="btnReset" class="btn outline" disabled>Reset</button>
+      <button id="btnDraw" class="btn">Draw 3</button>
+      <button id="btnReset" class="btn outline">Reset</button>
     </div>
   </header>
 
-  <main class="board">
-    <div class="slot" data-pos="1"><div class="card placeholder"><img src="assets/major/card-back.svg" alt="back"></div><p class="cap">Card 1</p></div>
-    <div class="slot" data-pos="2"><div class="card placeholder"><img src="assets/major/card-back.svg" alt="back"></div><p class="cap">Card 2</p></div>
-    <div class="slot" data-pos="3"><div class="card placeholder"><img src="assets/major/card-back.svg" alt="back"></div><p class="cap">Card 3</p></div>
+  <main class="wrap">
+    <div id="p5-holder" class="canvasHolder"></div>
+    <section id="reading" class="reading">
+      <h2>Reading</h2>
+      <ol>
+        <li id="r1"></li>
+        <li id="r2"></li>
+        <li id="r3"></li>
+      </ol>
+    </section>
   </main>
 
-  <section id="reading" class="reading hidden">
-    <h2>Your Reading</h2>
-    <ol>
-      <li id="r1"></li>
-      <li id="r2"></li>
-      <li id="r3"></li>
-    </ol>
-  </section>
-
   <footer class="foot">
-    <p>Student demo. Replace images in <code>assets/major/</code>. If a JPG is missing, a placeholder shows.</p>
+    <p>Student demo • Images in <code>assets/major/</code></p>
   </footer>
 
-  <div id="modal" class="modal hidden" aria-hidden="true">
-    <div class="dialog">
-      <button id="closeModal" class="x">×</button>
-      <img id="mImg" alt="">
-      <h3 id="mTitle"></h3>
-      <p id="mMeta" class="meta"></p>
-      <p id="mTxt"></p>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
+  <script src="sketch.js"></script>
 </body>
 </html>
