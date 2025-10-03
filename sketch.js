@@ -119,5 +119,7 @@ function drawThree() {
 
 backImg = loadImage('assets/back.jpg');
 deck = loadJSON('data/cards.json');
+let path = 'assets/major/' + card.file;
+imgs[path] = loadImage(path, ()=>{}, ()=>{ imgs[path] = backImg; });
 
 function resetBoard() { drawn = []; }
