@@ -1,79 +1,121 @@
-@font-face{
-  font-family: 'ZapfinoCustom';
-  src: url('assets/fonts/Zapfino.ttf') format('truetype');
-  font-weight: normal; font-style: normal; font-display: swap;
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: sans-serif;
+  background: #0a0c14;
+  color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0; background:#0b0f1a; color:#f2f2f6;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-  display:flex; flex-direction:column; align-items:center;
-  text-align:center;
+
+.container {
+  text-align: center;
+  max-width: 960px;
+  margin: auto;
 }
-/* 背景渐变 + 图片 */
-.bg-overlay{
-  position:fixed; inset:0; z-index:-1; pointer-events:none;
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(5, 8, 20, 0.75) 0%,
-      rgba(5, 8, 20, 0.35) 40%,
-      rgba(5, 8, 20, 0.75) 100%
-    ),
-    url('assets/background.jpg') center/cover no-repeat;
-  opacity:.35; filter:saturate(.9) contrast(1.05);
+
+.site-title {
+  margin-bottom: 20px;
+  font-size: 1.6rem;
 }
-.site-title{
-  font-family:'ZapfinoCustom', serif; font-size:2.5rem; margin:20px 0;
-  color:#d6b56f; text-shadow:0 2px 10px rgba(0,0,0,.6);
+
+.controls {
+  margin-bottom: 20px;
 }
-.controls{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-bottom:20px;}
-.btn{
-  padding:10px 18px; border:none; border-radius:12px; cursor:pointer; font-weight:700;
-  background: linear-gradient(180deg, #d6b56f, #b9964e);
-  color:#1b1620; box-shadow: 0 10px 28px rgba(0,0,0,.35);
-  transition: transform .1s ease, filter .2s ease;
+
+.btn {
+  background: #222;
+  color: #eee;
+  border: 1px solid #666;
+  padding: 8px 16px;
+  margin: 0 4px;
+  cursor: pointer;
+  border-radius: 6px;
 }
-.btn:hover{transform:translateY(-1px); filter:brightness(1.03)}
-.btn.outline{background:transparent; color:#d6b56f; border:1px solid #b9964e; box-shadow:none}
-.cards{
-  display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin:20px 0;
+
+.btn:hover {
+  background: #333;
 }
-.card{
-  width:180px; height:320px; position:relative; perspective:1000px;
+
+.btn.outline {
+  background: transparent;
 }
-.card-inner{
-  position:absolute; width:100%; height:100%; transition: transform 0.8s; transform-style: preserve-3d;
+
+.cards {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 28px;
+  flex-wrap: nowrap;
+  margin-bottom: 16px;
 }
+
+.card-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.card {
+  width: 160px;
+  height: 240px;
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform .6s;
+  transform-style: preserve-3d;
+}
+
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
 .card img {
-  transition: transform 0.3s ease;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .3s ease;
 }
 
-.card.flipped .card-inner{transform: rotateY(180deg);}
-.card-front,.card-back{
-  position:absolute; width:100%; height:100%; backface-visibility:hidden;
-  border:2px solid #fff; border-radius:8px; overflow:hidden;
-}
-.card-front{transform: rotateY(180deg);}
-.card img{width:100%; height:100%; object-fit:cover;}
-.meaning{margin-top:10px; font-size:0.9rem; max-width:180px;}
-.foot{width:100%; text-align:center; color:#ccc; padding:12px 0 22px; font-size:0.85rem;}
-
-body{
-  min-height:100vh;
-  margin:0;
-  display:grid;
-  place-items:center;
+.meaning {
+  position: absolute;
+  bottom: 0;
+  left: calc(100% + 12px); /* default right side */
+  width: 240px;
+  max-width: 32vw;
+  font-size: 14px;
+  line-height: 1.35;
+  text-align: left;
+  color: #f0f0f0;
+  display: none;
+  z-index: 5;
 }
 
-.container{
-  width:min(1000px, 96vw);
-  margin:0 auto;
-  text-align:center;
+/* shift caption to left if overflowing */
+.card-wrap .meaning.left-side {
+  left: auto;
+  right: calc(100% + 12px);
+  text-align: right;
 }
 
-#p5-holder{
-  display:grid;
-  place-items:center;
+.tip {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-top: 12px;
 }
