@@ -1,22 +1,27 @@
 body {
   margin: 0;
-  font-family: sans-serif;
+  min-height: 100vh;
   background: #0a0c14;
   color: #eee;
+  font-family: sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
 }
+
 .container {
   text-align: center;
 }
+
 .site-title {
   margin-bottom: 20px;
+  font-size: 1.6rem;
 }
+
 .controls {
   margin-bottom: 20px;
 }
+
 button {
   background: #222;
   color: #eee;
@@ -25,5 +30,13 @@ button {
   margin: 0 4px;
   cursor: pointer;
   border-radius: 6px;
+  font-size: 0.9rem;
 }
-button:hover { background: #333; }
+
+button:hover {
+  background: #333;
+}
+
+#p5-holder {
+  margin-top: 20px;
+}
