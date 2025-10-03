@@ -117,4 +117,7 @@ function drawThree() {
   }
 }
 
+backImg = loadImage('assets/back.jpg');
+deck = loadJSON('data/cards.json');
+
 function resetBoard() { drawn = []; }
