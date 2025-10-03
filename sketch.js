@@ -1,4 +1,4 @@
-// Tarot Simulator with p5.js — centered, larger layout
+// Tarot Simulator with p5.js
 let deck = [];
 let imgs = {};
 let backImg;
@@ -6,13 +6,11 @@ let drawn = [];
 let canvasW, canvasH;
 let slots = [];
 
-// layout constants
 const LAYOUT = {
   cardW: 200,
   cardH: 320,
   gapLarge: 220,
-  cardsYFactor: 0.65,   // move cards lower on canvas
-  stackY: 100,
+  cardsYFactor: 0.65,
   capWidth: 220,
   capHeight: 120,
   capSize: 14,
@@ -30,16 +28,13 @@ function setup() {
   cnv.parent('p5-holder');
   imageMode(CENTER);
   textSize(LAYOUT.capSize);
-
   computeSlots();
-
   select('#btnDraw')?.mousePressed(drawThree);
   select('#btnReset')?.mousePressed(resetBoard);
 
-  // preload images
   for (const card of deck) {
     let path = 'assets/major/' + card.file;
-    imgs[path] = loadImage(path, () => {}, () => { imgs[path] = backImg; });
+    imgs[path] = loadImage(path, ()=>{}, ()=>{ imgs[path] = backImg; });
   }
 }
 
@@ -88,14 +83,12 @@ function draw() {
     let capY = cardBottomY;
     let horizAlign = LEFT;
 
-    // overflow check
     if (capX + LAYOUT.capWidth + LAYOUT.capMargin > canvasW) {
       capX = cardLeftX - 12;
       horizAlign = RIGHT;
     }
 
-    const txt = (d.orientation === 'reversed' ? 'Reversed: ' : 'Upright: ')
-      + d.card.meanings[d.orientation];
+    const txt = (d.orientation==='reversed' ? 'Reversed: ' : 'Upright: ') + d.card.meanings[d.orientation];
     push();
     textSize(LAYOUT.capSize);
     fill(240);
@@ -116,10 +109,5 @@ function drawThree() {
     drawn.push({ card: deck[i], orientation: orientation() });
   }
 }
-
-backImg = loadImage('assets/back.jpg');
-deck = loadJSON('data/cards.json');
-let path = 'assets/major/' + card.file;
-imgs[path] = loadImage(path, ()=>{}, ()=>{ imgs[path] = backImg; });
 
 function resetBoard() { drawn = []; }

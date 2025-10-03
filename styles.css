@@ -8,20 +8,16 @@ body {
   justify-content: center;
   align-items: center;
 }
-
 .container {
   text-align: center;
 }
-
 .site-title {
   margin-bottom: 20px;
   font-size: 1.6rem;
 }
-
 .controls {
   margin-bottom: 20px;
 }
-
 button {
   background: #222;
   color: #eee;
@@ -32,11 +28,9 @@ button {
   border-radius: 6px;
   font-size: 0.9rem;
 }
-
 button:hover {
   background: #333;
 }
-
 #p5-holder {
   margin-top: 20px;
 }
