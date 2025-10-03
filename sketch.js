@@ -1,4 +1,4 @@
-// p5 Tarot 
+
 let deck = [];
 let imgs = {};
 let backImg;
@@ -6,7 +6,7 @@ let drawn = [];
 let canvasW, canvasH;
 let slots = [];
 
-
+// Layout
 const LAYOUT = {
   cardW: 220,
   cardH: 360,
@@ -15,21 +15,17 @@ const LAYOUT = {
   stackY: 120,
 
   capOffsetX: 16,     
-  capOffsetY: -4,     
-  capWidth: 240,      
-  capHeight: 140,    
-  capSize: 14         
-};
+  capOffsetY: -4,      
+  capWidth: 240,        
+  capHeight: 140,       
+  capSize: 14,
+  capMargin: 16         
 
-
-function imagePath(card) {
-  if (card.image) return card.image;                      
-  if (card.file)  return `assets/major/${card.file}`;      
+function imagePath(card){
+  if (card.image) return card.image;                
   return null;
 }
-
-
-function meaningOf(card, orientation) {
+function meaningOf(card, orientation){
   if (card.meanings && card.meanings[orientation]) return card.meanings[orientation];
   if (card[orientation]) return card[orientation];
   return '';
@@ -49,16 +45,12 @@ function setup(){
   textAlign(CENTER, CENTER);
   textSize(LAYOUT.capSize);
 
-
+ 
   for (const card of deck){
     const p = imagePath(card);
     if (!p) continue;
-    if (!imgs[p]) {
-      imgs[p] = loadImage(
-        p,
-        () => {},
-        () => { imgs[p] = backImg; }
-      );
+    if (!imgs[p]){
+      imgs[p] = loadImage(p, () => {}, () => { imgs[p] = backImg; });
     }
   }
 
@@ -77,7 +69,7 @@ function windowResized(){
 function computeCanvasSize(){
   const maxW = min(980, windowWidth * 0.96);
   canvasW = maxW;
-  canvasH = round(maxW * 0.62); 
+  canvasH = round(maxW * 0.62);
 }
 
 function computeSlots(){
@@ -86,44 +78,53 @@ function computeSlots(){
   const gap = canvasW > 700 ? LAYOUT.gapLarge : canvasW * 0.26;
 
   slots = [
-    { x: centerX - gap, y, hover: false },
-    { x: centerX,       y, hover: false },
-    { x: centerX + gap, y, hover: false }
+    { x: centerX - gap, y, hover:false },
+    { x: centerX,       y, hover:false },
+    { x: centerX + gap, y, hover:false }
   ];
 }
 
 function draw(){
-  clear(); 
+  clear();
 
   push();
-  translate(canvasW / 2, LAYOUT.stackY);
-  for (let i = 0; i < 3; i++){
-    push();
-    translate(i * 1.2, -i * 1.2);
-    image(backImg, 0, 0, 110, 180);
-    pop();
+  translate(canvasW/2, LAYOUT.stackY);
+  for (let i=0; i<3; i++){
+    push(); translate(i*1.2, -i*1.2); image(backImg, 0, 0, 110, 180); pop();
   }
   pop();
 
-  //  cards + captions
-  for (let i = 0; i < drawn.length; i++){
+  for (let i=0; i<drawn.length; i++){
     const d = drawn[i];
     const s = slots[i];
     const p = imagePath(d.card);
     const img = (p && imgs[p]) ? imgs[p] : backImg;
 
-    // card
+    
     push();
     translate(s.x, s.y);
     if (d.orientation === 'reversed') rotate(PI);
     image(img, 0, 0, LAYOUT.cardW, LAYOUT.cardH);
     pop();
 
-    const cardRightX = s.x + LAYOUT.cardW / 2;
-    const cardBottomY = s.y + LAYOUT.cardH / 2;
+    
+    const cardRightX = s.x + LAYOUT.cardW/2;
+    const cardLeftX  = s.x - LAYOUT.cardW/2;
+    const cardBottomY = s.y + LAYOUT.cardH/2;
 
-    const capX = cardRightX + LAYOUT.capOffsetX;
-    const capY = cardBottomY + LAYOUT.capOffsetY;
+    
+    const maxWrap = max(140, canvasW * 0.32);
+    const capW = min(LAYOUT.capWidth, maxWrap);
+
+    
+    let capX = cardRightX + LAYOUT.capOffsetX;
+    let capY = cardBottomY + LAYOUT.capOffsetY;
+    let horizAlign = LEFT;
+
+    if (capX + capW + LAYOUT.capMargin > canvasW){
+      capX = cardLeftX - LAYOUT.capOffsetX - capW;  
+      horizAlign = RIGHT;                            
+    }
 
     const isRev = d.orientation === 'reversed';
     const label = isRev ? 'Reversed: ' : 'Upright: ';
@@ -132,30 +133,24 @@ function draw(){
     push();
     textSize(LAYOUT.capSize);
     fill(240);
-    if (typeof textWrap === 'function') textWrap(WORD); 
-    textAlign(LEFT, BOTTOM);
-    text(
-      textStr,
-      capX,                  
-      capY,                  
-      LAYOUT.capWidth,        
-      LAYOUT.capHeight       
-    );
+    if (typeof textWrap === 'function') textWrap(WORD);
+    textAlign(horizAlign, BOTTOM);                 
+    text(textStr, capX, capY, capW, LAYOUT.capHeight);
     pop();
   }
 
-  for (let i = 0; i < drawn.length; i++){
+  
+  for (let i=0; i<drawn.length; i++){
     const s = slots[i];
     s.hover = (
-      mouseX > s.x - LAYOUT.cardW / 2 && mouseX < s.x + LAYOUT.cardW / 2 &&
-      mouseY > s.y - LAYOUT.cardH / 2 && mouseY < s.y + LAYOUT.cardH / 2
+      mouseX > s.x - LAYOUT.cardW/2 && mouseX < s.x + LAYOUT.cardW/2 &&
+      mouseY > s.y - LAYOUT.cardH/2 && mouseY < s.y + LAYOUT.cardH/2
     );
   }
 }
 
 function mousePressed(){
-  
-  for (let i = 0; i < drawn.length; i++){
+  for (let i=0; i<drawn.length; i++){
     const s = slots[i];
     if (s.hover){
       drawn[i].orientation = (drawn[i].orientation === 'upright') ? 'reversed' : 'upright';
@@ -165,40 +160,22 @@ function mousePressed(){
   }
 }
 
-function keyPressed(){ if (key === 'r' || key === 'R') reshuffle(); }
-
+function keyPressed(){ if (key==='r' || key==='R') reshuffle(); }
 function reshuffle(){ deck = shuffle(deck); }
-
-function shuffle(arr){
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--){
-    const j = floor(random(i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
-function orientation(){ return random() < 0.5 ? 'upright' : 'reversed'; }
+function shuffle(arr){ const a=[...arr]; for (let i=a.length-1;i>0;i--){ const j=floor(random(i+1)); [a[i],a[j]]=[a[j],a[i]] } return a }
+function orientation(){ return random()<0.5 ? 'upright' : 'reversed' }
 
 function drawThree(){
-  reshuffle();
-  drawn = [];
-  for (let i = 0; i < 3; i++){
-    const c = deck.pop();
-    drawn.push({ card: c, orientation: orientation() });
-  }
+  reshuffle(); drawn=[];
+  for (let i=0;i<3;i++){ const c=deck.pop(); drawn.push({ card:c, orientation: orientation() }); }
   updateReading();
 }
+function resetBoard(){ drawn=[]; updateReading(); }
 
-function resetBoard(){ drawn = []; updateReading(); }
 
 function updateReading(){
   const r1 = select('#r1'), r2 = select('#r2'), r3 = select('#r3');
-  if (drawn.length === 3){
-    r1?.html(`${drawn[0].card.name} (${drawn[0].orientation}) — ${meaningOf(drawn[0].card, drawn[0].orientation)}`);
-    r2?.html(`${drawn[1].card.name} (${drawn[1].orientation}) — ${meaningOf(drawn[1].card, drawn[1].orientation)}`);
-    r3?.html(`${drawn[2].card.name} (${drawn[2].orientation}) — ${meaningOf(drawn[2].card, drawn[2].orientation)}`);
-  } else {
-    r1?.html(''); r2?.html(''); r3?.html('');
-  }
+  const textFor = (d) => `${d.card.name} (${d.orientation}) — ${meaningOf(d.card, d.orientation)}`;
+  if (drawn.length===3){ r1?.html(textFor(drawn[0])); r2?.html(textFor(drawn[1])); r3?.html(textFor(drawn[2])); }
+  else { r1?.html(''); r2?.html(''); r3?.html(''); }
 }
