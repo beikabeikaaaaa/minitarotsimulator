@@ -17,8 +17,12 @@ function shuffleDeck() {
 }
 
 function createCardElement(card) {
+  const wrap = document.createElement('div');
+  wrap.className = 'card-wrap';
+
   const cardDiv = document.createElement('div');
   cardDiv.classList.add('card');
+
   const inner = document.createElement('div');
   inner.classList.add('card-inner');
 
@@ -26,7 +30,7 @@ function createCardElement(card) {
   front.classList.add('card-front');
   const frontImg = document.createElement('img');
   frontImg.src = `assets/major/${card.file}`;
-  frontImg.onerror = () => { frontImg.src = 'assets/back.jpg'; }; // fallback
+  frontImg.onerror = () => { frontImg.src = 'assets/back.jpg'; };
   front.appendChild(frontImg);
 
   const back = document.createElement('div');
@@ -39,26 +43,37 @@ function createCardElement(card) {
   inner.appendChild(back);
   cardDiv.appendChild(inner);
 
-  // upright/ reversed
+  // upright/reversed
   const isReversed = Math.random() < 0.5;
- if (isReversed) {
-  frontImg.style.transform = "rotate(180deg)";
-}
+  if (isReversed) {
+    frontImg.style.transform = 'rotate(180deg)';
+  }
 
   const meaning = document.createElement('div');
   meaning.classList.add('meaning');
   meaning.textContent = isReversed 
-    ? `Reversed: ${card.meanings.reversed}` 
+    ? `Reversed: ${card.meanings.reversed}`
     : `Upright: ${card.meanings.upright}`;
-  meaning.style.display = 'none';
 
+  // toggle on click
   cardDiv.addEventListener('click', () => {
     cardDiv.classList.toggle('flipped');
-    meaning.style.display = meaning.style.display === 'none' ? 'block' : 'none';
+    meaning.style.display = (meaning.style.display === 'none') ? 'block' : 'none';
+
+    // reposition caption if overflowing
+    if (meaning.style.display === 'block') {
+      const rect = meaning.getBoundingClientRect();
+      if (rect.right > window.innerWidth) {
+        meaning.classList.add('left-side');
+      } else {
+        meaning.classList.remove('left-side');
+      }
+    }
   });
 
-  cardsContainer.appendChild(cardDiv);
-  cardsContainer.appendChild(meaning);
+  wrap.appendChild(cardDiv);
+  wrap.appendChild(meaning);
+  cardsContainer.appendChild(wrap);
 }
 
 drawBtn.addEventListener('click', () => {
