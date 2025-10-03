@@ -1,4 +1,4 @@
-// Tarot Simulator with p5.js
+// Tarot Simulator with p5.js — centered layout + caption fix
 let deck = [];
 let imgs = {};
 let backImg;
@@ -7,14 +7,14 @@ let canvasW, canvasH;
 let slots = [];
 
 const LAYOUT = {
-  cardW: 200,
-  cardH: 320,
-  gapLarge: 220,
-  cardsYFactor: 0.65,
-  capWidth: 220,
+  cardW: 220,
+  cardH: 352,
+  gapLarge: 260,
+  cardsYFactor: 0.64,
+  capWidth: 260,
   capHeight: 120,
-  capSize: 14,
-  capMargin: 16
+  capSize: 16,
+  capMargin: 20
 };
 
 function preload() {
@@ -29,11 +29,13 @@ function setup() {
   imageMode(CENTER);
   textSize(LAYOUT.capSize);
   computeSlots();
+
   select('#btnDraw')?.mousePressed(drawThree);
   select('#btnReset')?.mousePressed(resetBoard);
+  select('#btnShuffle')?.mousePressed(()=>shuffle(deck,true));
 
   for (const card of deck) {
-    let path = 'assets/major/' + card.file;
+    const path = 'assets/major/' + card.file;
     imgs[path] = loadImage(path, ()=>{}, ()=>{ imgs[path] = backImg; });
   }
 }
@@ -45,15 +47,15 @@ function windowResized() {
 }
 
 function computeCanvasSize() {
-  const maxW = min(980, windowWidth * 0.9);
+  const maxW = min(1180, windowWidth * 0.92);
   canvasW = maxW;
-  canvasH = round(maxW * 0.62);
+  canvasH = round(maxW * 0.56);
 }
 
 function computeSlots() {
   const centerX = canvasW / 2;
   const y = canvasH * LAYOUT.cardsYFactor;
-  const gap = canvasW > 700 ? LAYOUT.gapLarge : canvasW * 0.26;
+  const gap = canvasW > 800 ? LAYOUT.gapLarge : canvasW * 0.28;
   slots = [
     { x: centerX - gap, y },
     { x: centerX, y },
@@ -68,23 +70,23 @@ function draw() {
     const s = slots[i];
     const img = imgs['assets/major/' + d.card.file] || backImg;
 
-    // draw card
+    // draw card (rotate if reversed)
     push();
     translate(s.x, s.y);
     if (d.orientation === 'reversed') rotate(PI);
     image(img, 0, 0, LAYOUT.cardW, LAYOUT.cardH);
     pop();
 
-    // caption
+    // caption anchored to card's bottom-right (or bottom-left if overflow)
     const cardRightX = s.x + LAYOUT.cardW / 2;
     const cardLeftX = s.x - LAYOUT.cardW / 2;
     const cardBottomY = s.y + LAYOUT.cardH / 2;
-    let capX = cardRightX + 12;
+    let capX = cardRightX + 14;
     let capY = cardBottomY;
     let horizAlign = LEFT;
 
     if (capX + LAYOUT.capWidth + LAYOUT.capMargin > canvasW) {
-      capX = cardLeftX - 12;
+      capX = cardLeftX - 14;
       horizAlign = RIGHT;
     }
 
@@ -98,11 +100,9 @@ function draw() {
   }
 }
 
-function orientation() {
-  return random() < 0.5 ? 'upright' : 'reversed';
-}
+function orientation(){ return random()<0.5 ? 'upright':'reversed'; }
 
-function drawThree() {
+function drawThree(){
   drawn = [];
   shuffle(deck, true);
   for (let i = 0; i < 3; i++) {
@@ -110,4 +110,4 @@ function drawThree() {
   }
 }
 
-function resetBoard() { drawn = []; }
+function resetBoard(){ drawn = []; }
