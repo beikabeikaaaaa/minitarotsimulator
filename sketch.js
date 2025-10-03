@@ -1,4 +1,5 @@
 
+
 let deck = [];
 let imgs = {};
 let backImg;
@@ -6,7 +7,7 @@ let drawn = [];
 let canvasW, canvasH;
 let slots = [];
 
-// Layout
+
 const LAYOUT = {
   cardW: 220,
   cardH: 360,
@@ -14,15 +15,18 @@ const LAYOUT = {
   cardsYFactor: 0.68,  
   stackY: 120,
 
-  capOffsetX: 16,     
+  capOffsetX: 16,      
   capOffsetY: -4,      
   capWidth: 240,        
   capHeight: 140,       
   capSize: 14,
   capMargin: 16         
+};
+
 
 function imagePath(card){
-  if (card.image) return card.image;                
+  if (card.image) return card.image;                 
+  if (card.file)  return `assets/major/${card.file}`;
   return null;
 }
 function meaningOf(card, orientation){
@@ -30,6 +34,7 @@ function meaningOf(card, orientation){
   if (card[orientation]) return card[orientation];
   return '';
 }
+
 
 function preload(){
   backImg = loadImage('assets/major/card-back.svg');
@@ -45,7 +50,7 @@ function setup(){
   textAlign(CENTER, CENTER);
   textSize(LAYOUT.capSize);
 
- 
+
   for (const card of deck){
     const p = imagePath(card);
     if (!p) continue;
@@ -87,12 +92,14 @@ function computeSlots(){
 function draw(){
   clear();
 
+
   push();
   translate(canvasW/2, LAYOUT.stackY);
   for (let i=0; i<3; i++){
     push(); translate(i*1.2, -i*1.2); image(backImg, 0, 0, 110, 180); pop();
   }
   pop();
+
 
   for (let i=0; i<drawn.length; i++){
     const d = drawn[i];
@@ -107,57 +114,37 @@ function draw(){
     image(img, 0, 0, LAYOUT.cardW, LAYOUT.cardH);
     pop();
 
-    
-const cardRightX  = s.x + LAYOUT.cardW / 2;
-const cardLeftX   = s.x - LAYOUT.cardW / 2;
-const cardBottomY = s.y + LAYOUT.cardH / 2;
+    const cardRightX = s.x + LAYOUT.cardW/2;
+    const cardLeftX  = s.x - LAYOUT.cardW/2;
+    const cardBottomY = s.y + LAYOUT.cardH/2;
 
-const maxWrap = max(140, canvasW * 0.32);
-const capW = min(LAYOUT.capWidth, maxWrap);
 
-let capX = cardRightX + LAYOUT.capOffsetX;   
-let capY = cardBottomY + LAYOUT.capOffsetY;
-let horizAlign = LEFT;
+    const maxWrap = max(140, canvasW * 0.32);
+    const capW = min(LAYOUT.capWidth, maxWrap);
 
-const overflowRight = capX + capW + LAYOUT.capMargin > canvasW;
-if (overflowRight) {
-  capX = cardLeftX - LAYOUT.capOffsetX - capW;
-  horizAlign = RIGHT;
-}
+    let capX = cardRightX + LAYOUT.capOffsetX;
+    let capY = cardBottomY + LAYOUT.capOffsetY;
+    let horizAlign = LEFT;
 
-if (capX < LAYOUT.capMargin) {
-  const usable = (cardLeftX - LAYOUT.capOffsetX) - LAYOUT.capMargin;
-  const safeW = max(140, usable);       
-  if (horizAlign === RIGHT) {
-    capX = cardLeftX - LAYOUT.capOffsetX - safeW;
+    if (capX + capW + LAYOUT.capMargin > canvasW){
+      capX = cardLeftX - LAYOUT.capOffsetX - capW;  
+      horizAlign = RIGHT;                           
+    }
+
+    const isRev = d.orientation === 'reversed';
+    const label = isRev ? 'Reversed: ' : 'Upright: ';
+    const textStr = `${label}${meaningOf(d.card, isRev ? 'reversed' : 'upright')}`;
+
+    push();
+    textSize(LAYOUT.capSize);
+    fill(240);
+    if (typeof textWrap === 'function') textWrap(WORD);
+    textAlign(horizAlign, BOTTOM);                
+    text(textStr, capX, capY, capW, LAYOUT.capHeight);
+    pop();
   }
- 
-  push();
-  textSize(LAYOUT.capSize);
-  fill(240);
-  if (typeof textWrap === 'function') textWrap(WORD);
-  textAlign(horizAlign, BOTTOM);
-  const isRev = d.orientation === 'reversed';
-  const label = isRev ? 'Reversed: ' : 'Upright: ';
-  const textStr = `${label}${meaningOf(d.card, isRev ? 'reversed' : 'upright')}`;
-  text(textStr, capX, capY, safeW, LAYOUT.capHeight);
-  pop();
-} else {
-  
-  push();
-  textSize(LAYOUT.capSize);
-  fill(240);
-  if (typeof textWrap === 'function') textWrap(WORD);
-  textAlign(horizAlign, BOTTOM);
-  const isRev = d.orientation === 'reversed';
-  const label = isRev ? 'Reversed: ' : 'Upright: ';
-  const textStr = `${label}${meaningOf(d.card, isRev ? 'reversed' : 'upright')}`;
-  text(textStr, capX, capY, capW, LAYOUT.capHeight);
-  pop();
-}
 
 
-  
   for (let i=0; i<drawn.length; i++){
     const s = slots[i];
     s.hover = (
@@ -189,7 +176,6 @@ function drawThree(){
   updateReading();
 }
 function resetBoard(){ drawn=[]; updateReading(); }
-
 
 function updateReading(){
   const r1 = select('#r1'), r2 = select('#r2'), r3 = select('#r3');
