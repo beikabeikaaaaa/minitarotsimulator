@@ -1,28 +1,18 @@
 const cardsContainer = document.getElementById('cards');
-const drawBtn = document.getElementById('btnDraw');
-const resetBtn = document.getElementById('btnReset');
-const shuffleBtn = document.getElementById('btnShuffle');
+const drawBtn = document.getElementById('drawBtn');
+const resetBtn = document.getElementById('resetBtn');
 
 let deck = [];
 
 fetch('data/cards.json')
   .then(res => res.json())
-  .then(data => { deck = data; });
-
-function shuffleDeck() {
-  for (let i = deck.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [deck[i], deck[j]] = [deck[j], deck[i]];
-  }
-}
+  .then(data => {
+    deck = data;
+  });
 
 function createCardElement(card) {
-  const wrap = document.createElement('div');
-  wrap.className = 'card-wrap';
-
   const cardDiv = document.createElement('div');
   cardDiv.classList.add('card');
-
   const inner = document.createElement('div');
   inner.classList.add('card-inner');
 
@@ -30,7 +20,6 @@ function createCardElement(card) {
   front.classList.add('card-front');
   const frontImg = document.createElement('img');
   frontImg.src = `assets/major/${card.file}`;
-  frontImg.onerror = () => { frontImg.src = 'assets/back.jpg'; };
   front.appendChild(frontImg);
 
   const back = document.createElement('div');
@@ -43,37 +32,18 @@ function createCardElement(card) {
   inner.appendChild(back);
   cardDiv.appendChild(inner);
 
-  // upright/reversed
-  const isReversed = Math.random() < 0.5;
-  if (isReversed) {
-    frontImg.style.transform = 'rotate(180deg)';
-  }
-
   const meaning = document.createElement('div');
   meaning.classList.add('meaning');
-  meaning.textContent = isReversed 
-    ? `Reversed: ${card.meanings.reversed}`
-    : `Upright: ${card.meanings.upright}`;
+  meaning.textContent = card.upright;
+  meaning.style.display = 'none';
+  cardDiv.appendChild(meaning);
 
-  // toggle on click
   cardDiv.addEventListener('click', () => {
     cardDiv.classList.toggle('flipped');
-    meaning.style.display = (meaning.style.display === 'none') ? 'block' : 'none';
-
-    // reposition caption if overflowing
-    if (meaning.style.display === 'block') {
-      const rect = meaning.getBoundingClientRect();
-      if (rect.right > window.innerWidth) {
-        meaning.classList.add('left-side');
-      } else {
-        meaning.classList.remove('left-side');
-      }
-    }
+    meaning.style.display = meaning.style.display === 'none' ? 'block' : 'none';
   });
 
-  wrap.appendChild(cardDiv);
-  wrap.appendChild(meaning);
-  cardsContainer.appendChild(wrap);
+  cardsContainer.appendChild(cardDiv);
 }
 
 drawBtn.addEventListener('click', () => {
@@ -88,9 +58,4 @@ drawBtn.addEventListener('click', () => {
 
 resetBtn.addEventListener('click', () => {
   cardsContainer.innerHTML = '';
-});
-
-shuffleBtn.addEventListener('click', () => {
-  shuffleDeck();
-  alert("Deck shuffled!");
 });
