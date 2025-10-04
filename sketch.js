@@ -1,4 +1,39 @@
-// Tarot Simulator with p5.js — centered layout + caption fix
+function preload() {
+  backImg = loadImage('assets/back.jpg');
+
+ 
+  let raw = loadJSON('data/cards.json');
+
+  if (Array.isArray(raw)) {
+    deck = raw;
+  } else {
+    deck = Object.values(raw || {});
+  }
+}
+
+function setup() {
+  if (!Array.isArray(deck) || deck.length === 0) {
+    console.warn('No cards loaded. Check data/cards.json path.');
+  }
+
+  computeCanvasSize();
+  const cnv = createCanvas(canvasW, canvasH);
+  cnv.parent('p5-holder');
+  imageMode(CENTER);
+  textSize(LAYOUT.capSize);
+  computeSlots();
+
+  select('#btnDraw')?.mousePressed(drawThree);
+  select('#btnReset')?.mousePressed(resetBoard);
+  select('#btnShuffle')?.mousePressed(()=>shuffle(deck, true));
+
+
+  for (const card of deck) {
+    const path = 'assets/major/' + card.file;
+    imgs[path] = loadImage(path, ()=>{}, ()=>{ imgs[path] = backImg; });
+  }
+}
+
 let deck = [];
 let imgs = {};
 let backImg;
