@@ -7,19 +7,23 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="container">
+  <div class="bg-overlay"></div>
+  <header class="container">
     <h1 class="site-title">Mini Tarot Simulator — 3-Card Draw</h1>
     <div class="controls">
       <button id="btnDraw" class="btn">Draw 3</button>
       <button id="btnShuffle" class="btn">Shuffle</button>
       <button id="btnReset" class="btn outline">Reset</button>
     </div>
-    <div id="p5-holder"></div>
-    <p class="tip">Silently recite a question in your mind, then click the Draw button and combine the meanings of the three cards. It is the answer to the question.</p>
-  </div>
+  </header>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
-<script src="sketch.js"></script>
+  <main class="canvas-holder"></main>
 
+  <p class="tip">Silently recite a question in your mind, then click the Draw button and combine the meanings of the three cards. It is the answer to the question.</p>
+
+  <footer class="foot"></footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+  <script src="sketch.js"></script>
 </body>
 </html>
